@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Site Fleuriste – Exemple RKWebDesign</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      header p {
+        font-size: 1.2rem;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .section-flower-grid, 
+      .contact-section, 
+      #bouquet-romantique, 
+      #deco-interieur, 
+      #votre-bouquet {
+        padding: 2rem 1rem;
+      }
+
+      .flower-card h3 {
+        font-size: 1.1rem;
+      }
+
+      .flower-card p {
+        font-size: 0.95rem;
+      }
+
+      footer {
+        font-size: 0.9rem;
+      }
+    }
+
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      font-family: 'Roboto', sans-serif;
+      background: #fffafc;
+      color: #333;
+    }
+
+    header {
+      height: 100vh;
+      background-image: url('fleuriste_images/plante_base.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    header h1, header p, .scroll-down {
+      position: relative;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .scroll-down {
+      margin-top: 3rem;
+      font-size: 1.2rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
+    nav {
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav a {
+      color: #189b4e;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .section-flower-grid {
+      background: linear-gradient(135deg, #fff0f5, #f0fff0);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .section-flower-grid h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      color: #189b4e;
+      margin-bottom: 2rem;
+    }
+
+    .flower-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .flower-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .flower-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .flower-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .flower-card h3 {
+      font-size: 1.3rem;
+      color: #189b4e;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .flower-card p {
+      padding: 0 1rem 1.5rem;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .contact-section {
+      background: #f9f0ff;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .contact-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      color: #189b4e;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    footer {
+      background-color: #189b4e;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fleuriste</h1>
+    <p>Un exemple de site web pour un fleuriste</p>
+    <div class="scroll-down">⬇ Faites glisser pour découvrir ⬇</div>
+  </header> 
+
+
+  <main>
+    <section class="section-flower-grid" id="services">
+      <h2>Nos Créations</h2>
+      <div class="flower-grid">
+        <div class="flower-card" data-aos="fade-up">
+          <img src="fleuriste_images/bouquet-of-flowers-261231_960_720.jpg" alt="Bouquet romantique">
+          <h3>Bouquet Romantique</h3>
+          <a href="#bouquet-romantique" class="btn-info">En savoir plus</a>
+        </div>
+        <div class="flower-card" data-aos="fade-up" data-aos-delay="100">
+          <img src="fleuriste_images/deco_interieur.webp" alt="décoration intérieure">
+          <h3>Décoration intérieure</h3>
+          <a href="#deco-interieure" class="btn-info">En savoir plus</a>
+        </div>
+        <div class="flower-card" data-aos="fade-up" data-aos-delay="200">
+          <img src="fleuriste_images/bouquet.jpg" alt="votre bouquet">
+          <h3>Votre bouquet</h3>
+          <a href="#votre-bouquet" class="btn-info">En savoir plus</a>
+        </div>
+        
+      </div>
+    </section>
+    
+    <section id="bouquet-romantique" style="padding: 4rem 2rem; background: #fff0f5; text-align: center;" data-aos="fade-up">
+      <h2>Bouquet Romantique</h2>
+      <p style="max-width: 700px; margin: auto; font-size: 1.1rem;">
+        Ce bouquet est composé de roses rouges soigneusement sélectionnées pour être offert à une personne qui vous est chère.
+      </p>
+    </section>
+    
+    <section id="deco-interieure" style="padding: 4rem 2rem; background: #f0fff5; text-align: center;" data-aos="fade-up">
+      <h2>Décoration intérieure</h2>
+      <p style="max-width: 700px; margin: auto; font-size: 1.1rem;">
+        Vous ne savez pas comment décorer votre intérieur, ou simplement le rendre plus accueillant, plus frais ou plus végétal ?
+      </p>
+    </section>
+    
+    <section id="votre-bouquet" style="padding: 4rem 2rem; background: #f5f9ff; text-align: center;" data-aos="fade-up">
+      <h2>Votre bouquet</h2>
+      <p style="max-width: 700px; margin: auto; font-size: 1.1rem;">
+        Vous pourrez créer votre propre bouquet selon vos goûts et vos couleurs, pour vous ou pour l'offrir à un de vos proches.
+      </p>
+    </section>
+
+    
+    <section class="contact-section" id="contact" data-aos="fade-up">
+      <h2>Nous contacter</h2>
+      <p>
+        📍 Rue des Fleurs 20, 1950 Sion<br>
+        📞 027 999 99 99<br>
+        📧 exemple@fleuriste.ch
+      </p>
+      <div class="social-icons" style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem;">
+        <a href="https://www.facebook.com" target="_blank" title="Facebook">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="40" height="40" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+        </a>
+        <a href="https://www.instagram.com" target="_blank" title="Instagram">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" width="40" height="40" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+        </a>
+        <a href="https://www.tiktok.com" target="_blank" title="TikTok">
+          <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" width="40" height="40" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+        </a>
+      </div>
+    </section>
+    
+    <style>
+      .btn-info {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        padding: 0.6rem 1.2rem;
+        background-color: #189b4e;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+      .btn-info:hover {
+        background-color: #189b4e;
+      }
+
+      .pulse-highlight {
+        animation: pulse-grow 0.6s ease-in-out;
+      }
+
+      @keyframes pulse-grow {
+        0% { transform: scale(1); color: #189b4e; }
+        50% { transform: scale(1.2); color: #11df67; }
+        100% { transform: scale(1); color: #189b4e; }
+      }
+    </style>
+    
+  </main>
+
+  <footer>
+    &copy; 2025 Exemple de site pour un fleuriste
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100
+    });
+
+    document.querySelectorAll('.btn-info').forEach(button => {
+    button.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href').replace('#', '');
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        const targetTitle = targetSection.querySelector('h2');
+        targetTitle.classList.add('pulse-highlight');
+        setTimeout(() => {
+          targetTitle.classList.remove('pulse-highlight');
+        }, 1000);
+      }
+    });
+  });
+  </script>
+</body>
+</html>

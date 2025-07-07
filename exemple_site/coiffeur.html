@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Salon Coiffure</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+  <style>
+    :root {
+  --color-bg: #fff7f2;
+  --color-primary: #e29587;
+  --color-dark: #3d3d3d;
+  --color-text: #6a6a6a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+/* HEADER */
+header {
+  padding: 5rem 1rem 3rem;
+  text-align: center;
+  background: linear-gradient(to right, #ffe8e2, #fff2ee);
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--color-dark);
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: var(--color-primary);
+}
+
+/* MAIN */
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 3rem 1.5rem;
+}
+
+/* TITRES */
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--color-dark);
+  border-bottom: 2px solid var(--color-primary);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* PARAGRAPHES & LISTES */
+p {
+  margin-bottom: 1.2rem;
+  text-align: justify;
+}
+
+ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+ul li {
+  margin-bottom: 0.6rem;
+}
+
+/* BOUTON CTA */
+.cta {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
+}
+
+.cta:hover {
+  background-color: #d17f70;
+  transform: translateY(-2px);
+}
+
+/* RÉSEAUX SOCIAUX */
+.socials {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  font-size: 2rem;
+}
+
+.socials a {
+  color: var(--color-primary);
+  transition: color 0.3s ease;
+}
+
+.socials a:hover {
+  color: #d17f70;
+}
+
+/* GALERIE */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.gallery img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.gallery img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* CARTE GOOGLE MAPS */
+iframe {
+  width: 100%;
+  height: 300px;
+  border: 0;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 3rem 1rem;
+  font-size: 0.9rem;
+  background-color: #fff2ee;
+  color: var(--color-dark);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p, ul li {
+    font-size: 1rem;
+  }
+
+  .cta {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .gallery img {
+    height: auto;
+  }
+
+  .socials {
+    font-size: 1.5rem;
+    gap: 1rem;
+  }
+}
+
+/* IMAGE RESPONSIVE GLOBALE */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.gallery-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3; /* ratio harmonieux */
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+  </style>
+</head>
+<body>
+
+  <header data-aos="fade-down">
+    <h1>Salon Coiffure</h1>
+  </header>
+
+  <main>
+    <section data-aos="fade-up">
+        <h2>Nos Prestations</h2>
+        <p>Bienvenue dans notre salon où beauté rime avec bien-être. Nous vous proposons des coupes tendance, des colorations éclatantes, des brushings parfaits et des soins capillaires profonds adaptés à tous les types de cheveux.</p>
+        
+
+        </p>
+    </section>
+
+    <section data-aos="fade-up" data-aos-delay="100">
+        <h2>Notre Équipe</h2>
+        <p>Notre équipe de coiffeurs passionnés et expérimentés est à votre écoute pour vous conseiller et réaliser la coiffure qui vous correspond. Chaque membre de notre équipe suit régulièrement des formations afin de rester à la pointe des dernières tendances et techniques.</p>
+        
+    </section>
+
+    <section data-aos="fade-up" data-aos-delay="200">
+      <h2>Nos Tarifs</h2>
+      <p>Voici un aperçu de nos prestations. Tous nos services incluent un diagnostic personnalisé et un moment de détente dans un cadre apaisant.</p>
+      <ul>
+        <li>Coupe femme : CHF 65.–</li>
+        <li>Coupe homme : CHF 40.–</li>
+        <li>Coupe enfant (-12 ans) : CHF 30.–</li>
+        <li>Coloration (racines) : dès CHF 70.–</li>
+        <li>Soin profond & massage : CHF 25.–</li>
+        <li>Brushing : CHF 35.–</li>
+      </ul>
+      <p>Les tarifs peuvent varier en fonction de la longueur des cheveux, des produits utilisés et de la prestation choisie. N'hésitez pas à nous contacter pour un devis personnalisé.</p>
+
+    </section>
+
+    <section data-aos="fade-up" data-aos-delay="250">
+        <h2>Galerie de Coiffures</h2>
+        <p>Inspirez-vous de nos dernières réalisations : coupes, couleurs, coiffages et relooking faits avec passion et précision.</p>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="coiffeur_images/coupe_img1.jpg" alt="Coiffure 1">
+          </div>
+          <div class="gallery-item">
+            <img src="coiffeur_images/coupe_img2.jpeg" alt="Coiffure 2">
+          </div>
+          <div class="gallery-item">
+            <img src="coiffeur_images/coupe_img3.jpg" alt="Coiffure 3">
+          </div>
+        </div>
+        
+      </section>
+      
+
+    <section data-aos="fade-up" data-aos-delay="300">
+      <h2>Contact</h2>
+      <p>📍 Adresse : Rue du Coiffeur 20, 1950 Sion</p>
+      <p>📞 Téléphone : 027 999 99 99</p>
+      <p>📧 Email : exemple@salon.ch</p>
+      <p>🕒 Horaires : Du mardi au samedi de 9h à 18h</p>
+    </section>
+
+    <section data-aos="fade-up" data-aos-delay="400">
+      <h2>Où nous trouver</h2>
+      <p>Notre salon est situé au cœur de Sion. N’hésitez pas à venir nous rendre visite ou à prendre rendez-vous directement sur place.</p>
+        <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2763.152888371818!2d7.357290215585487!3d46.23034017911726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478f2f9fc184fd83%3A0x6d57ec60eb5288ef!2sRue%20du%20Coiffeur%2020%2C%201950%20Sion%2C%20Suisse!5e0!3m2!1sfr!2sch!4v1714529973914!5m2!1sfr!2sch"
+      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    
+    </section>
+
+    <section data-aos="fade-up" data-aos-delay="500">
+        <h2>Suivez-nous</h2>
+        <p>Restez connecté avec nous sur nos réseaux sociaux ou contactez-nous pour toute question :</p>
+        
+        <div class="socials">
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://wa.me/41791234567" target="_blank" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </section>
+      
+  </main>
+
+  <footer data-aos="fade-up">
+    &copy; 2025 Exemple de site pour un Salon de Coiffure
+  </footer>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+  </script>
+</body>
+</html>

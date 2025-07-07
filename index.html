@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RKWebDesign</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            dark: '#111418',
+            light: '#f8fafc'
+          },
+          fontFamily: {
+            sans: ['Work Sans', 'Noto Sans', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    .modal {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .modal.active {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-content {
+      transform: translateY(20px);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    .modal.active .modal-content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .section-dynamique {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .active-tab {
+      border-bottom: 3px solid #0ea5e9;
+      color: #0ea5e9;
+      font-weight: 600;
+    }
+    .fade-in {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .hover-scale {
+      transition: all 0.3s ease;
+    }
+    .hover-scale:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    .card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #0ea5e9;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .btn-primary {
+      background-image: linear-gradient(to right, #0ea5e9, #3b82f6);
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-dark overflow-x-hidden relative font-sans">
+  <div class="min-h-screen flex flex-col">
+    <!-- Header amélioré -->
+    <header class="sticky top-0 z-10 bg-white/80 backdrop-blur-sm border-b border-gray-200 px-6 py-4 fade-in shadow-sm">
+      <div class="container mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white font-bold">R</div>
+          <h1 class="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">RKWebDesign</h1>
+        </div>
+        <nav class="flex items-center gap-6">
+          <a onclick="toggleFormulaire()" class="cursor-pointer btn-primary text-white px-5 py-2.5 rounded-full text-sm font-semibold">
+            Me contacter <i class="fas fa-paper-plane ml-1"></i>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero section -->
+    <section class="py-12 md:py-20 px-4 fade-in">
+      <div class="container mx-auto max-w-4xl text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">Besoin d'un site web ?</h2>
+        <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+          Je mets mes compétences à votre service pour créer un site adapté à vos besoins, qu'il soit personnel ou professionnel.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main content -->
+    <main class="flex-1 px-4 md:px-6 py-10 fade-in">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <div class="inline-flex gap-8 justify-center fade-in">
+            <button id="onglet-examples" onclick="afficherSection('examples')" class="onglet pb-2 text-sm font-semibold border-b-2 border-transparent hover:text-primary-600 transition-colors flex items-center gap-2">
+              <i class="fas fa-photo-film"></i> Exemples
+            </button>
+            <button id="onglet-about" onclick="afficherSection('about')" class="onglet pb-2 text-sm font-semibold border-b-2 border-transparent hover:text-primary-600 transition-colors flex items-center gap-2">
+              <i class="fas fa-user"></i> À propos de moi
+            </button>
+            <button id="onglet-services" onclick="afficherSection('services')" class="onglet pb-2 text-sm font-semibold border-b-2 border-transparent hover:text-primary-600 transition-colors flex items-center gap-2">
+              <i class="fas fa-list-check"></i> Services
+            </button>
+          </div>
+        </div>
+
+        <section id="examples" class="section-dynamique fade-in">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <a href="exemple_site/coiffeur.html" target="_blank" class="card bg-white hover-scale group">
+              <div class="overflow-hidden rounded-t-lg">
+                <img src="images/salon_coiffure.jpg" alt="Salon de coiffure" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+              </div>
+              <div class="p-6">
+                <h3 class="font-semibold text-lg mb-2 group-hover:text-primary-600 transition-colors">Salon de coiffure</h3>
+                <p class="text-sm text-gray-600">Site vitrine d'exemple pour un salon de coiffure.</p>
+                <div class="mt-4 flex items-center text-primary-600 text-xs font-medium">
+                  Voir le site <i class="fas fa-arrow-right ml-1"></i>
+                </div>
+              </div>
+            </a>
+
+            <a href="exemple_site/fleuriste.html" target="_blank" class="card bg-white hover-scale group">
+              <div class="overflow-hidden rounded-t-lg">
+                <img src="images/fleuriste.jpg" alt="Fleuriste" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+              </div>
+              <div class="p-6">
+                <h3 class="font-semibold text-lg mb-2 group-hover:text-primary-600 transition-colors">Fleuriste</h3>
+                <p class="text-sm text-gray-600">Site vitrine d'exemple pour un fleuriste.</p>
+                <div class="mt-4 flex items-center text-primary-600 text-xs font-medium">
+                  Voir le site <i class="fas fa-arrow-right ml-1"></i>
+                </div>
+              </div>
+            </a>
+
+            <a href="exemple_site/restaurant.html" target="_blank" class="card bg-white hover-scale group">
+              <div class="overflow-hidden rounded-t-lg">
+                <img src="images/restaurant_italien.jpg" alt="Restaurant" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+              </div>
+              <div class="p-6">
+                <h3 class="font-semibold text-lg mb-2 group-hover:text-primary-600 transition-colors">Restaurant</h3>
+                <p class="text-sm text-gray-600">Site vitrine d'exemple pour un restaurant.</p>
+                <div class="mt-4 flex items-center text-primary-600 text-xs font-medium">
+                  Voir le site <i class="fas fa-arrow-right ml-1"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <section id="about" class="section-dynamique fade-in">
+          <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl shadow-sm p-8 md:p-10">
+              <h2 class="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">À propos de moi</h2>
+              <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="w-full md:w-1/3">
+                </div>
+                <div class="w-full md:w-2/3">
+                  <p class="text-gray-700 mb-6 leading-relaxed">
+                    Je suis étudiant en informatique, basé à Sion en Valais. Créatif, passionné et rigoureux, mon objectif est de mettre mes compétences au service de particuliers et de petites entreprises locales, en proposant des sites efficaces et faciles à utiliser.
+                  </p>
+                  <div class="flex flex-wrap gap-3">
+                    <span class="bg-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-medium">HTML/CSS</span>
+                    <span class="bg-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-medium">JavaScript</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="services" class="section-dynamique text-center fade-in px-4 md:px-20">
+  <h2 class="text-2xl font-bold mb-8 text-[#3d98f4]">Mes services</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+    
+    <!-- Carte 1 -->
+    <div class="bg-white rounded-xl p-6 shadow-sm hover-scale border-l-4 border-[#3d98f4] h-full min-h-[220px]">
+      <div class="w-12 h-12 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
+        <i class="fas fa-window-maximize text-xl"></i>
+      </div>
+      <h3 class="font-semibold text-xl mb-3">Sites vitrines</h3>
+      <p class="text-gray-600 text-sm leading-relaxed">
+        Création de sites web vitrine pour mettre en avant votre entreprise.
+      </p>
+    </div>
+
+    <!-- Carte 2 -->
+    <div class="bg-white rounded-xl p-6 shadow-sm hover-scale border-l-4 border-[#3d98f4] h-full min-h-[220px]">
+      <div class="w-12 h-12 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
+        <i class="fas fa-blog text-xl"></i>
+      </div>
+      <h3 class="font-semibold text-xl mb-3">Blogs personnalisés</h3>
+      <p class="text-gray-600 text-sm leading-relaxed">
+        Conception de blogs sur mesure avec système de gestion de contenu facile à utiliser pour vos publications.
+      </p>
+    </div>
+
+    <!-- Carte 3 -->
+    <div class="bg-white rounded-xl p-6 shadow-sm hover-scale border-l-4 border-[#3d98f4] h-full min-h-[220px]">
+      <div class="w-12 h-12 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
+        <i class="fas fa-chart-line text-xl"></i>
+      </div>
+      <h3 class="font-semibold text-xl mb-3">Optimisation SEO de base et nom de domaine</h3>
+      <p class="text-gray-600 text-sm leading-relaxed">
+        Optimisation du SEO de votre site pour une meilleure visibilité sur les moteurs de recherche. Ainsi qu'un nom de domaine et un hébergement Suisse.
+      </p>
+    </div>
+
+    <!-- Carte 4 -->
+    <div class="bg-white rounded-xl p-6 shadow-sm hover-scale border-l-4 border-[#3d98f4] h-full min-h-[220px]">
+      <div class="w-12 h-12 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
+        <i class="fas fa-info-circle text-xl"></i>
+      </div>
+      <h3 class="font-semibold text-xl mb-3">Informations supplémentaires</h3>
+      <p class="text-gray-600 text-sm leading-relaxed">
+        Tous les sites incluent un hébergement gratuit pendant 1 an. Possibilité de renouvellement. Abonnement mensuel possible pour la gestion continue.
+      </p>
+    </div>
+
+  </div>
+  <section class="py-16 fade-in text-center bg-white mt-12 rounded-xl shadow-sm">
+  <h2 class="text-3xl font-bold mb-6 text-dark">Intéressé par mes services ?</h2>
+  <p class="mb-6 text-gray-600 max-w-xl mx-auto">
+    N'hésitez pas à me contacter pour discuter de votre projet et de ses tarifs. Je suis à votre disposition pour créer un site web sur mesure, adapté à vos besoins.
+  </p>
+  <button onclick="toggleFormulaire()" class="btn-primary text-white px-8 py-3 rounded-full font-semibold text-lg shadow hover:scale-105 transition-transform">
+    Me contacter <i class="fas fa-paper-plane ml-2"></i>
+  </button>
+</section>
+</section>
+
+
+
+      </div>
+    </main>
+
+    <!-- Formulaire modal amélioré -->
+    <div id="formulaire-contact" class="modal fixed inset-0 bg-black/60 z-50 items-center justify-center p-4">
+      <div class="modal-content bg-white w-full max-w-md rounded-xl shadow-xl relative">
+        <button onclick="toggleFormulaire()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl font-bold transition-colors">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="p-6 md:p-8">
+          <div class="text-center mb-6">
+            <div class="w-16 h-16 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-paper-plane text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-semibold text-gray-900">Contactez-moi</h3>
+            <p class="text-gray-500 mt-2">Remplissez le formulaire et je vous répondrai rapidement</p>
+          </div>
+          <form action="https://formspree.io/f/xqaboqre" method="POST" onsubmit="handleFormSubmit(event)" class="space-y-4">
+            <!-- Sujet personnalisé pour Formspree -->
+            <input type="hidden" name="_subject" value="Nouveau message depuis RKWebDesign">
+
+            <div class="text-left">
+              <label class="block text-sm font-medium mb-1.5 text-gray-700" for="nom">Votre nom</label>
+              <input type="text" id="nom" name="nom" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" required>
+            </div>
+
+            <div class="text-left">
+              <label class="block text-sm font-medium mb-1.5 text-gray-700" for="email">Votre email</label>
+              <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" required>
+            </div>
+
+            <div class="text-left">
+              <label class="block text-sm font-medium mb-1.5 text-gray-700" for="message">Votre message</label>
+              <textarea id="message" name="message" rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary text-white px-6 py-3 rounded-lg font-semibold w-full mt-2">
+              Envoyer le message <i class="fas fa-paper-plane ml-2"></i>
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 py-8 fade-in">
+      <div class="container mx-auto px-4">
+        <div class="border-t border-gray-100 mt-6 pt-6 text-center text-sm text-gray-500">
+          &copy; 2025 RKWebDesign - Tous droits réservés
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function toggleFormulaire() {
+      const modal = document.getElementById("formulaire-contact");
+      modal.classList.toggle("active");
+      document.body.style.overflow = modal.classList.contains("active") ? "hidden" : "auto";
+    }
+    
+    function fermerSiClicExterieur(e) {
+      const modal = document.getElementById("formulaire-contact");
+      if (e.target === modal) {
+        toggleFormulaire();
+      }
+    }
+    
+    function afficherSection(id) {
+      const sections = document.querySelectorAll(".section-dynamique");
+      sections.forEach((el) => (el.style.display = "none"));
+      const onglets = document.querySelectorAll(".onglet");
+      onglets.forEach((el) => el.classList.remove("active-tab"));
+      document.getElementById(id).style.display = "block";
+      document.getElementById("onglet-" + id).classList.add("active-tab");
+      
+      // Scroll vers la section si on est sur mobile
+      if (window.innerWidth < 768) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    
+    window.addEventListener("DOMContentLoaded", () => {
+      afficherSection("examples");
+      
+      // Animation des éléments au chargement
+      const fadeElements = document.querySelectorAll('.fade-in');
+      fadeElements.forEach((el, index) => {
+        el.style.animationDelay = `${index * 0.1}s`;
+      });
+    });
+    
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      
+      // Afficher le loader
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Envoi en cours...';
+      
+      fetch(form.action, {
+        method: form.method,
+        body: new FormData(form),
+        headers: {
+          Accept: "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            // Message de succès
+            const successDiv = document.createElement('div');
+            successDiv.className = 'bg-green-50 text-green-700 p-4 rounded-lg mb-4 text-center';
+            successDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Message envoyé avec succès ! Je vous répondrai dès que possible.';
+            form.parentNode.insertBefore(successDiv, form);
+            form.style.display = 'none';
+            
+            // Réinitialiser après 3 secondes
+            setTimeout(() => {
+              toggleFormulaire();
+              form.reset();
+              form.style.display = 'block';
+              if (form.previousElementSibling.classList.contains('bg-green-50')) {
+                form.parentNode.removeChild(form.previousElementSibling);
+              }
+            }, 3000);
+          } else {
+            throw new Error('Erreur réseau');
+          }
+        })
+        .catch((error) => {
+          // Message d'erreur
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'bg-red-50 text-red-700 p-4 rounded-lg mb-4 text-center';
+          errorDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i> Une erreur est survenue. Veuillez réessayer ou me contacter directement.';
+          form.parentNode.insertBefore(errorDiv, form);
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        });
+    }
+  </script>
+</body>
+</html>
