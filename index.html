@@ -376,7 +376,9 @@
     }
     
     window.addEventListener("DOMContentLoaded", () => {
-      afficherSection("examples");
+    const isMobile = window.innerWidth < 768;
+    afficherSection("examples", !isMobile);
+    });
       
       // Animation des éléments au chargement
       const fadeElements = document.querySelectorAll('.fade-in');
