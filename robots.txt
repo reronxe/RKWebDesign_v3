@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://reronxe.github.io/RKWebDesign_v3/sitemap.xml
